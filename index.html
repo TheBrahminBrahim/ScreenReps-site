@@ -1,91 +1,856 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ScreenReps — Earn your screen time</title>
-  <meta name="description" content="ScreenReps is a digital wellness app that helps you take control of your phone use. Block distracting apps and unlock them by completing real exercise.">
-  <meta name="theme-color" content="#F5F2EC">
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ScreenReps — Move first. Scroll later.</title>
+  <meta name="description" content="ScreenReps blocks your favorite apps until you complete real, camera-verified exercise. Auto-banked minutes. No honor system. Coming to iPhone." />
+  <meta property="og:title" content="ScreenReps — Move first. Scroll later." />
+  <meta property="og:description" content="Earn your screen time through real exercise. Camera-verified reps. Auto-banked minutes. No honor system." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://screenreps.app" />
+  <meta property="og:image" content="/icon.png" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Tokens ──────────────────────────────────────────────────── */
+    :root {
+      --bg:     #16181C;
+      --card:   #1E2126;
+      --dim:    #2C3038;
+      --fg:     #F4F4F5;
+      --muted:  #8B8E96;
+      --accent: #FF5C35;
+      --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+      --r-pill: 999px;
+      --r-lg: 22px;
+    }
+
+    /* ─── Reset ───────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Figtree', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    ul { list-style: none; }
+
+    /* ─── Wrap ────────────────────────────────────────────────────── */
+    .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ─── Nav ─────────────────────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 200;
+      padding: 18px 0;
+      border-bottom: 1px solid transparent;
+      transition: background 300ms ease, border-color 300ms ease, backdrop-filter 300ms ease;
+    }
+    .nav.scrolled {
+      background: rgba(22, 24, 28, 0.84);
+      backdrop-filter: blur(24px) saturate(1.5);
+      -webkit-backdrop-filter: blur(24px) saturate(1.5);
+      border-color: var(--dim);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-logo img { width: 36px; height: 36px; border-radius: 8px; }
+    .nav-wordmark { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .nav-apple { width: 14px; height: 14px; fill: var(--muted); opacity: 0.7; }
+
+    /* ─── Hero ────────────────────────────────────────────────────── */
+    .hero {
+      padding: 150px 0 80px;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 80px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 28px;
+    }
+    .eyebrow-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.4; transform: scale(0.7); }
+    }
+
+    h1 {
+      font-size: clamp(3.25rem, 5.5vw, 4.75rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.0;
+      margin-bottom: 22px;
+      text-wrap: balance;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 1.4vw, 1.125rem);
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 400px;
+      margin-bottom: 40px;
+    }
+    .cta-row {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--fg);
+      color: #16181C;
+      padding: 13px 22px;
+      border-radius: var(--r-pill);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      cursor: default;
+      user-select: none;
+      transition: transform 120ms var(--ease-out);
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-apple { width: 16px; height: 16px; fill: #16181C; flex-shrink: 0; }
+    .cta-note { font-size: 13px; color: var(--muted); }
+
+    /* ─── Phone frame ─────────────────────────────────────────────── */
+    .phone-wrap {
+      position: relative;
+      width: 280px;
+      flex-shrink: 0;
+    }
+    .phone-wrap--sm { width: 240px; }
+
+    /* Volume buttons (left side) */
+    .phone-vol {
+      position: absolute;
+      left: -3px;
+      top: 22%;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      z-index: 1;
+    }
+    .phone-vol span {
+      display: block;
+      width: 3px;
+      background: rgba(255,255,255,0.17);
+      border-radius: 0 2px 2px 0;
+    }
+    .phone-vol span:first-child { height: 38px; }
+    .phone-vol span:last-child  { height: 26px; }
+    /* Silent toggle */
+    .phone-silent {
+      position: absolute;
+      left: -3px;
+      top: 15%;
+      width: 3px;
+      height: 16px;
+      background: rgba(255,255,255,0.17);
+      border-radius: 0 2px 2px 0;
+      z-index: 1;
+    }
+
+    .phone-body {
+      width: 100%;
+      aspect-ratio: 390 / 844;
+      background: var(--card);
+      border-radius: 42px;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow:
+        0 0 0 0.75px rgba(0,0,0,0.9),
+        inset 0 0 0 1px rgba(255,255,255,0.04),
+        0 32px 64px rgba(0,0,0,0.55),
+        0 72px 128px rgba(0,0,0,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    /* Dynamic Island */
+    .phone-body::before {
+      content: '';
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 88px;
+      height: 26px;
+      background: #070809;
+      border-radius: var(--r-pill);
+      z-index: 10;
+    }
+    /* Power button (right side) */
+    .phone-body::after {
+      content: '';
+      position: absolute;
+      top: 27%;
+      right: -2px;
+      width: 3px;
+      height: 11%;
+      background: rgba(255,255,255,0.17);
+      border-radius: 2px 0 0 2px;
+    }
+
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    .phone-screen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+
+    /* Placeholder until real screenshots land */
+    .phone-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--card);
+    }
+    .phone-placeholder img {
+      width: 54px;
+      height: 54px;
+      border-radius: 12px;
+      opacity: 0.4;
+    }
+
+    /* Ambient glow beneath hero phone */
+    .hero .phone-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: -56px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 230px;
+      height: 150px;
+      background: var(--accent);
+      opacity: 0.065;
+      border-radius: 50%;
+      filter: blur(50px);
+      pointer-events: none;
+    }
+
+    /* ─── Features ────────────────────────────────────────────────── */
+    .feature {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      padding: 96px 0;
+      border-top: 1px solid var(--dim);
+    }
+    /* Swap columns without affecting text direction */
+    .feature--flip { direction: rtl; }
+    .feature--flip > * { direction: ltr; }
+
+    .feat-tag {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+    .feat-h2 {
+      font-size: clamp(1.875rem, 2.8vw, 2.625rem);
+      font-weight: 780;
+      letter-spacing: -0.035em;
+      line-height: 1.08;
+      margin-bottom: 18px;
+      text-wrap: balance;
+    }
+    .feat-desc {
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+    .feat-list { display: flex; flex-direction: column; gap: 12px; }
+    .feat-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+    .feat-list li::before {
+      content: '';
+      display: block;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-top: 9px;
+      flex-shrink: 0;
+    }
+
+    /* ─── Diff strip ──────────────────────────────────────────────── */
+    .diff {
+      padding: 80px 0 100px;
+      border-top: 1px solid var(--dim);
+    }
+    .diff-head { margin-bottom: 52px; }
+    .diff-head h2 {
+      font-size: clamp(1.875rem, 2.8vw, 2.375rem);
+      font-weight: 780;
+      letter-spacing: -0.035em;
+      margin-bottom: 10px;
+    }
+    .diff-head p { font-size: 17px; color: var(--muted); }
+
+    /* Grid with hairline dividers via gap + bg on parent */
+    .diff-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1px;
+      background: var(--dim);
+      border: 1px solid var(--dim);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+    }
+    .diff-cell {
+      background: var(--bg);
+      padding: 32px 28px;
+    }
+    .diff-icon { font-size: 22px; margin-bottom: 16px; line-height: 1; }
+    .diff-cell h3 {
+      font-size: 16px;
+      font-weight: 680;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+    }
+    .diff-cell p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+    /* ─── Pricing ─────────────────────────────────────────────────── */
+    .pricing {
+      padding: 80px 0 100px;
+      border-top: 1px solid var(--dim);
+    }
+    .pricing-head { margin-bottom: 52px; }
+    .pricing-head h2 {
+      font-size: clamp(1.875rem, 2.8vw, 2.375rem);
+      font-weight: 780;
+      letter-spacing: -0.035em;
+      margin-bottom: 10px;
+    }
+    .pricing-head p { font-size: 17px; color: var(--muted); }
+
+    .plans {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      max-width: 720px;
+    }
+    .plan {
+      background: var(--card);
+      border: 1px solid var(--dim);
+      border-radius: var(--r-lg);
+      padding: 34px;
+      display: flex;
+      flex-direction: column;
+    }
+    .plan--pro { border-color: rgba(255,255,255,0.1); }
+    .plan-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .plan--pro .plan-label { color: var(--accent); }
+    .plan-price {
+      font-size: 2.75rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .plan-price sup { font-size: 1.1rem; font-weight: 600; vertical-align: super; line-height: 0; }
+    /* min-height keeps the feature lists starting at the same y in both cards
+       (Pro's period block wraps to two lines) */
+    .plan-period { font-size: 13px; color: var(--muted); margin-bottom: 28px; line-height: 1.5; min-height: 40px; }
+    .plan-items { display: flex; flex-direction: column; gap: 9px; margin-bottom: 28px; }
+    .plan-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .plan-item--off { color: var(--muted); }
+    .plan-check { width: 15px; height: 15px; flex-shrink: 0; margin-top: 2px; }
+    .plan-cta {
+      display: block;
+      margin-top: auto;
+      text-align: center;
+      padding: 11px 0;
+      border-radius: var(--r-pill);
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--dim);
+      color: var(--muted);
+      cursor: default;
+      user-select: none;
+    }
+    .plan-cta--accent { background: var(--accent); color: var(--fg); }
+
+    /* ─── Footer ──────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--dim);
+      padding: 28px 0 36px;
+    }
+    .foot-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px 24px;
+    }
+    .foot-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 680;
+    }
+    .foot-logo img { width: 22px; height: 22px; border-radius: 5px; }
+    .foot-links { display: flex; gap: 22px; }
+    .foot-links a { font-size: 14px; color: var(--muted); transition: color 180ms ease; }
+    .foot-links a:hover { color: var(--fg); }
+    .foot-copy { font-size: 13px; color: var(--muted); }
+
+    /* ─── Scroll reveals ──────────────────────────────────────────── */
+    /* Content visible by default; JS opt-in adds the hide/reveal behavior */
+    .js [data-reveal] {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 580ms var(--ease-out), transform 580ms var(--ease-out);
+    }
+    .js [data-reveal].visible { opacity: 1; transform: none; }
+    .js [data-reveal][data-d="1"] { transition-delay:  80ms; }
+    .js [data-reveal][data-d="2"] { transition-delay: 160ms; }
+    .js [data-reveal][data-d="3"] { transition-delay: 240ms; }
+    .js [data-reveal][data-d="4"] { transition-delay: 320ms; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .js [data-reveal] { transform: none; transition: opacity 380ms ease; }
+      .eyebrow-dot { animation: none !important; }
+    }
+
+    /* ─── Responsive ──────────────────────────────────────────────── */
+    @media (max-width: 860px) {
+      .wrap { padding: 0 24px; }
+      .hero { padding: 120px 0 64px; min-height: auto; }
+      .hero-inner { grid-template-columns: 1fr; gap: 52px; text-align: center; }
+      .hero-sub { margin-left: auto; margin-right: auto; }
+      .cta-row { justify-content: center; }
+      .hero .phone-wrap { margin: 0 auto; order: -1; }
+
+      .feature { grid-template-columns: 1fr; gap: 44px; padding: 68px 0; }
+      .feature--flip { direction: ltr; }
+      .feature--flip .phone-wrap { order: -1; }
+      .feature .phone-wrap { margin: 0 auto; }
+
+      .plans { grid-template-columns: 1fr; max-width: 380px; }
+    }
+    @media (max-width: 540px) {
+      h1 { letter-spacing: -0.03em; }
+      .diff-grid { grid-template-columns: 1fr; }
+      .foot-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
+    }
+  </style>
 </head>
+
 <body>
 
-  <header class="site-header">
-    <div class="container">
-      <a href="/" class="logo">ScreenReps</a>
-      <span class="tag-coming-soon">Coming soon to iOS</span>
+<!-- ── Nav ──────────────────────────────────────────────────────── -->
+<nav class="nav" id="nav" aria-label="Site navigation">
+  <div class="wrap">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="ScreenReps home">
+        <img src="/icon.png" alt="" aria-hidden="true" />
+        <span class="nav-wordmark">ScreenReps</span>
+      </a>
+      <div class="nav-right">
+        <svg class="nav-apple" viewBox="0 0 814 1000" aria-hidden="true">
+          <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 790.7 0 663 0 541.8c0-207.1 130.3-316.6 254.2-316.6 73.4 0 134.3 48.3 179.7 48.3 43.5 0 111.8-51.4 194.7-51.4 31.6 0 108.2 5.1 166.5 68.9zm-252.6-205.7c31.4-37.5 53.9-90.5 53.9-143.5 0-7.7-.6-15.4-1.9-21.8C539.3 6.5 483 30.5 445 60.7c-35.1 27.5-68.3 70-68.3 126.8 0 8.3 1.3 16.7 1.9 19.3 3.2.6 8.4 1.3 13.6 1.3 49.7 0 103.1-22.6 134.3-72.9z"/>
+        </svg>
+        Coming soon to iPhone
+      </div>
     </div>
-  </header>
+  </div>
+</nav>
 
-  <main>
+<main>
 
-    <section class="hero">
-      <div class="container">
-        <h1>Earn your <span class="accent">screen time.</span></h1>
-        <p class="lede">ScreenReps blocks the apps that steal your time, and unlocks them when you complete real exercise. Move first. Scroll second.</p>
+<!-- ── Hero ─────────────────────────────────────────────────────── -->
+<section class="hero" aria-label="Introduction">
+  <div class="wrap">
+    <div class="hero-inner">
+
+      <div class="hero-text">
+        <div class="hero-eyebrow" data-reveal>
+          <span class="eyebrow-dot" aria-hidden="true"></span>
+          Now in beta
+        </div>
+        <h1 data-reveal data-d="1">Move first.<br>Scroll later.</h1>
+        <p class="hero-sub" data-reveal data-d="2">
+          ScreenReps blocks your favorite apps until you earn them back through real, verified exercise. Every rep banks screen time automatically. No honor system.
+        </p>
+        <div class="cta-row" data-reveal data-d="3">
+          <span class="btn" role="text" aria-label="Coming to the App Store">
+            <svg class="btn-apple" viewBox="0 0 814 1000" aria-hidden="true">
+              <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 790.7 0 663 0 541.8c0-207.1 130.3-316.6 254.2-316.6 73.4 0 134.3 48.3 179.7 48.3 43.5 0 111.8-51.4 194.7-51.4 31.6 0 108.2 5.1 166.5 68.9zm-252.6-205.7c31.4-37.5 53.9-90.5 53.9-143.5 0-7.7-.6-15.4-1.9-21.8C539.3 6.5 483 30.5 445 60.7c-35.1 27.5-68.3 70-68.3 126.8 0 8.3 1.3 16.7 1.9 19.3 3.2.6 8.4 1.3 13.6 1.3 49.7 0 103.1-22.6 134.3-72.9z"/>
+            </svg>
+            Coming to the App Store
+          </span>
+          <span class="cta-note">Free to download · iPhone</span>
+        </div>
       </div>
-    </section>
 
-    <section class="content">
-      <div class="container">
-        <h2>What is ScreenReps?</h2>
-        <p>ScreenReps is a digital wellness app for iOS. You pick the apps that distract you most — Instagram, TikTok, YouTube, whatever it is — and ScreenReps shields them when your daily limit runs out.</p>
-        <p>To earn more time, you do real exercise: pushups, squats, plank holds, walking, or a check-in at your gym. Reps become minutes. Movement becomes scrolling. Your phone stops being free.</p>
-      </div>
-    </section>
-
-    <section class="content">
-      <div class="container">
-        <h2>How it works</h2>
-        <div class="grid-3">
-          <div class="feature-block">
-            <span class="step-num">1</span>
-            <h3>Pick what to block</h3>
-            <p>Choose the apps and websites that drain your time. Set a daily allowance.</p>
-          </div>
-          <div class="feature-block">
-            <span class="step-num">2</span>
-            <h3>Pick how you move</h3>
-            <p>Pushups, squats, plank, walking, or gym check-ins. Set your own rep-to-minute ratio.</p>
-          </div>
-          <div class="feature-block">
-            <span class="step-num">3</span>
-            <h3>Earn it back</h3>
-            <p>Complete the exercise, unlock the apps. Banked minutes carry over throughout the day.</p>
+      <!-- Hero phone -->
+      <div class="phone-wrap" data-reveal data-d="4" aria-hidden="true">
+        <span class="phone-silent"></span>
+        <div class="phone-vol"><span></span><span></span></div>
+        <div class="phone-body">
+          <div class="phone-screen">
+            <img src="/screenshots/timesup.png" alt="ScreenReps blocked app screen — apps locked until you earn screen time" />
           </div>
         </div>
       </div>
-    </section>
 
-    <section class="privacy-emphasis">
-      <div class="container">
-        <h2 style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 18px;">Privacy first. No exceptions.</h2>
-        <p style="font-size: 17px; color: var(--fg); line-height: 1.65; max-width: 600px; margin-bottom: 22px;">ScreenReps is built around a simple idea: your data should belong to you. We don't have servers, we don't have accounts, we don't track you.</p>
-        <div class="pill-row">
-          <span class="privacy-pill">All data stays on your device</span>
-          <span class="privacy-pill">No accounts, no signup</span>
-          <span class="privacy-pill">No analytics, no tracking</span>
-          <span class="privacy-pill">No ads, ever</span>
-          <span class="privacy-pill">Camera frames discarded after each rep</span>
-          <span class="privacy-pill">Location used once per check-in, never stored</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── Features ──────────────────────────────────────────────────── -->
+
+<!-- Feature 1: Exercise -->
+<section aria-labelledby="feat1-h">
+  <div class="wrap">
+    <div class="feature">
+      <div class="phone-wrap phone-wrap--sm" data-reveal aria-hidden="true">
+        <span class="phone-silent"></span>
+        <div class="phone-vol"><span></span><span></span></div>
+        <div class="phone-body">
+          <div class="phone-screen">
+            <img src="/screenshots/exercise.png" alt="Live squat session with green pose skeleton overlay confirming the rep" />
+          </div>
         </div>
       </div>
-    </section>
 
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <div>
-        <strong style="color: var(--fg); display: block; margin-bottom: 4px;">ScreenReps</strong>
-        <span>A Scarabyte product. Toronto, Canada.</span>
-      </div>
-      <div class="footer-links">
-        <a href="mailto:hello@screenreps.app">hello@screenreps.app</a>
-        <a href="/privacy">Privacy Policy</a>
+      <div data-reveal data-d="1">
+        <span class="feat-tag">Exercise</span>
+        <h2 class="feat-h2" id="feat1-h">Every rep,<br>verified on device.</h2>
+        <p class="feat-desc">
+          On-device ML checks your form on every pushup, squat, and situp. Your camera watches so your phone stays locked until you've genuinely earned your time.
+        </p>
+        <ul class="feat-list">
+          <li>Pose-verified rep counting — no taps, no guesses</li>
+          <li>HealthKit steps, swims, and workouts</li>
+          <li>Gym check-in via your own pinned location</li>
+        </ul>
       </div>
     </div>
-  </footer>
+  </div>
+</section>
+
+<!-- Feature 2: Time bank (flipped) -->
+<section aria-labelledby="feat2-h">
+  <div class="wrap">
+    <div class="feature feature--flip">
+      <div class="phone-wrap phone-wrap--sm" data-reveal aria-hidden="true">
+        <span class="phone-silent"></span>
+        <div class="phone-vol"><span></span><span></span></div>
+        <div class="phone-body">
+          <div class="phone-screen">
+            <img src="/screenshots/home.png" alt="ScreenReps home screen showing 30-minute unlock window with 11 minutes still banked" />
+          </div>
+        </div>
+      </div>
+
+      <div data-reveal data-d="1">
+        <span class="feat-tag">Time bank</span>
+        <h2 class="feat-h2" id="feat2-h">Minutes you earned.<br>Time you own.</h2>
+        <p class="feat-desc">
+          Every set banks screen time the second you finish. Spend it to open apps for a timed window — lock early and the unused minutes go right back to your balance.
+        </p>
+        <ul class="feat-list">
+          <li>Auto-banked the moment you stop — zero taps</li>
+          <li>Pro: carry minutes across days, indefinitely</li>
+          <li>Lock early to reclaim what you didn't use</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Feature 3: Streaks -->
+<section aria-labelledby="feat3-h">
+  <div class="wrap">
+    <div class="feature">
+      <div class="phone-wrap phone-wrap--sm" data-reveal aria-hidden="true">
+        <span class="phone-silent"></span>
+        <div class="phone-vol"><span></span><span></span></div>
+        <div class="phone-body">
+          <div class="phone-screen">
+            <img src="/screenshots/exercises.png" alt="Exercise picker showing pushups, squats, situps, cycling, and more with 41 minutes banked" />
+          </div>
+        </div>
+      </div>
+
+      <div data-reveal data-d="1">
+        <span class="feat-tag">Exercises</span>
+        <h2 class="feat-h2" id="feat3-h">More ways<br>to earn.</h2>
+        <p class="feat-desc">
+          Pick whatever fits your day. Push-ups on the bedroom floor, a gym session, a long walk — they all count toward your screen time.
+        </p>
+        <ul class="feat-list">
+          <li>Camera-verified reps: pushups, squats, situps, and more</li>
+          <li>HealthKit: steps, cycling, swims, stair climbs</li>
+          <li>Gym check-in via your own pinned location</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Differentiators ────────────────────────────────────────────── -->
+<section class="diff" aria-labelledby="diff-h">
+  <div class="wrap">
+    <div class="diff-head" data-reveal>
+      <h2 id="diff-h">No shortcuts. No gimmicks.</h2>
+      <p>What separates ScreenReps from apps that let you cheat.</p>
+    </div>
+    <div class="diff-grid">
+      <div class="diff-cell" data-reveal>
+        <div class="diff-icon" aria-hidden="true">🔒</div>
+        <h3>Camera-verified only</h3>
+        <p>On-device ML verifies every rep. HealthKit handles steps and swims. Nothing ships on trust alone — no tap-to-count, no accelerometer guesses.</p>
+      </div>
+      <div class="diff-cell" data-reveal data-d="1">
+        <div class="diff-icon" aria-hidden="true">⚡</div>
+        <h3>Auto-banked, always</h3>
+        <p>Minutes hit your bank the instant you finish a set. No "tap to confirm," no manual redemption step — just close the app and your time is there.</p>
+      </div>
+      <div class="diff-cell" data-reveal data-d="2">
+        <div class="diff-icon" aria-hidden="true">🆓</div>
+        <h3>Free means free</h3>
+        <p>Walking, squats, pushups, and planks — free forever, no trial timer. Pro adds carry-over banking, more exercises, and weekly schedules.</p>
+      </div>
+      <div class="diff-cell" data-reveal data-d="3">
+        <div class="diff-icon" aria-hidden="true">🔐</div>
+        <h3>Your data stays local</h3>
+        <p>No account, no cloud sync. Streaks, stats, and session history live on your iPhone and never leave without your say-so.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Pricing ─────────────────────────────────────────────────────── -->
+<section class="pricing" aria-labelledby="pricing-h">
+  <div class="wrap">
+    <div class="pricing-head" data-reveal>
+      <h2 id="pricing-h">Simple pricing.</h2>
+      <p>Start free. Upgrade when you want more.</p>
+    </div>
+    <div class="plans">
+
+      <!-- Free tier -->
+      <div class="plan" data-reveal>
+        <div class="plan-label">Free</div>
+        <div class="plan-price">$0</div>
+        <div class="plan-period">Always free</div>
+        <ul class="plan-items">
+          <li class="plan-item">
+            <svg class="plan-check" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8l3.5 3.5L13 4.5" stroke="var(--fg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>Unlimited app blocking
+          </li>
+          <li class="plan-item">
+            <svg class="plan-check" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8l3.5 3.5L13 4.5" stroke="var(--fg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>Walking, squats, pushups &amp; planks
+          </li>
+          <li class="plan-item">
+            <svg class="plan-check" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8l3.5 3.5L13 4.5" stroke="var(--fg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>Streaks and weekly stats
+          </li>
+          <li class="plan-item">
+            <svg class="plan-check" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8l3.5 3.5L13 4.5" stroke="var(--fg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>Custom exercise-to-time ratios
+          </li>
+          <li class="plan-item plan-item--off">
+            <svg class="plan-check" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8l3.5 3.5L13 4.5" stroke="var(--dim)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>Day-carry for banked minutes
+          </li>
+          <li class="plan-item plan-item--off">
+            <svg class="plan-check" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8l3.5 3.5L13 4.5" stroke="var(--dim)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>All exercises &amp; gym check-in
+          </li>
+        </ul>
+        <span class="plan-cta" role="text">Available at launch</span>
+      </div>
+
+      <!-- Pro tier -->
+      <div class="plan plan--pro" data-reveal data-d="1">
+        <div class="plan-label">Pro</div>
+        <div class="plan-price"><sup>$</sup>9<span style="font-size:1.1rem;font-weight:600">.99</span></div>
+        <div class="plan-period">per month &nbsp;·&nbsp; or $49.99/yr<br><span style="color:var(--accent);font-weight:600">Save 58% annually</span></div>
+        <ul class="plan-items">
+          <li class="plan-item">
+            <svg class="plan-check" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8l3.5 3.5L13 4.5" stroke="var(--fg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>Everything in Free
+          </li>
+          <li class="plan-item">
+            <svg class="plan-check" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8l3.5 3.5L13 4.5" stroke="var(--fg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>Day-carry — minutes never expire
+          </li>
+          <li class="plan-item">
+            <svg class="plan-check" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8l3.5 3.5L13 4.5" stroke="var(--fg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>All exercises + gym check-in
+          </li>
+          <li class="plan-item">
+            <svg class="plan-check" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8l3.5 3.5L13 4.5" stroke="var(--fg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>Weekly blocking schedules
+          </li>
+          <li class="plan-item">
+            <svg class="plan-check" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8l3.5 3.5L13 4.5" stroke="var(--fg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>Monthly &amp; lifetime stats
+          </li>
+          <li class="plan-item">
+            <svg class="plan-check" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8l3.5 3.5L13 4.5" stroke="var(--fg)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>Custom daily reset time
+          </li>
+        </ul>
+        <span class="plan-cta plan-cta--accent" role="text">Available at launch</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ── Footer ────────────────────────────────────────────────────── -->
+<footer>
+  <div class="wrap">
+    <div class="foot-inner">
+      <div class="foot-logo">
+        <img src="/icon.png" alt="" aria-hidden="true" />
+        <span>ScreenReps</span>
+      </div>
+      <nav class="foot-links" aria-label="Footer links">
+        <a href="/privacy">Privacy</a>
+        <a href="mailto:hello@screenreps.app">Contact</a>
+        <a href="https://scarabyte.app" rel="noopener">Scarabyte</a>
+      </nav>
+      <span class="foot-copy">© 2026 Scarabyte</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* Add .js to html — keeps content visible without JS, adds reveals with it */
+  document.documentElement.classList.add('js');
+
+  /* Nav frosted glass on scroll */
+  const nav = document.getElementById('nav');
+  const tick = () => nav.classList.toggle('scrolled', window.scrollY > 20);
+  window.addEventListener('scroll', tick, { passive: true });
+  tick();
+
+  /* Hero elements: stagger in on load with setTimeout; keep them out of IO */
+  const heroEls = new Set(document.querySelectorAll('.hero [data-reveal]'));
+  heroEls.forEach((el, i) => {
+    // delay based on data-d attribute (0,1,2,3,4) so CSS transition-delay stacks
+    const base = 80;
+    setTimeout(() => el.classList.add('visible'), base + i * 90);
+  });
+
+  /* Scroll-reveal: one-shot IntersectionObserver — skip hero elements */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('visible');
+      io.unobserve(e.target);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -52px 0px' });
+
+  document.querySelectorAll('[data-reveal]').forEach(el => {
+    if (!heroEls.has(el)) io.observe(el);
+  });
+</script>
 
 </body>
 </html>

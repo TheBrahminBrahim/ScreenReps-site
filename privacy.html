@@ -1,147 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Privacy Policy — ScreenReps</title>
-  <meta name="description" content="ScreenReps Privacy Policy — local-first, no servers, no accounts, no analytics. Almost everything stays on your device.">
-  <meta name="theme-color" content="#F5F2EC">
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ScreenReps — Privacy Policy</title>
+  <meta name="description" content="ScreenReps privacy policy. Local-first, no accounts, no tracking, no analytics." />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 40px 24px 64px;
+      background: #F5F2EC;
+      color: #1A1A1A;
+      line-height: 1.7;
+    }
+    h1 { font-size: 28px; margin-bottom: 4px; letter-spacing: -0.01em; }
+    h2 { font-size: 18px; margin-top: 36px; border-bottom: 1px solid rgba(0,0,0,0.10); padding-bottom: 8px; }
+    h3 { font-size: 15px; margin-top: 22px; margin-bottom: 4px; }
+    .updated { color: #7A756B; font-size: 14px; margin-bottom: 32px; }
+    a { color: #E85D2C; }
+    ul { padding-left: 22px; }
+    .nav { font-size: 14px; margin-bottom: 24px; }
+    .nav a { color: #7A756B; text-decoration: none; border-bottom: 1px solid rgba(0,0,0,0.10); padding-bottom: 1px; }
+    .nav a:hover { color: #1A1A1A; }
+  </style>
 </head>
 <body>
 
-  <header class="site-header">
-    <div class="container">
-      <a href="/" class="logo">ScreenReps</a>
-      <span class="tag-coming-soon">Coming soon to iOS</span>
-    </div>
-  </header>
+<p class="nav"><a href="/">← ScreenReps</a></p>
 
-  <main>
+<h1>ScreenReps Privacy Policy</h1>
+<p class="updated">Last updated: May 2026</p>
 
-    <div class="container">
+<p>
+  ScreenReps ("we", "our", or "the app") is a digital wellness iOS application that
+  helps you reduce screen time by requiring physical exercise before unlocking
+  selected apps. Your privacy is central to how we built this product. ScreenReps
+  is local-first: it runs without accounts, without servers, and without third-party
+  analytics.
+</p>
 
-      <section class="policy-header">
-        <h1>Privacy Policy</h1>
-        <p class="updated">Last updated: May 8, 2026</p>
-      </section>
+<h2>What data we collect</h2>
+<p>ScreenReps collects only what is necessary to function. Everything below is stored on your device only:</p>
+<ul>
+  <li><strong>Exercise data</strong> — rep counts, step counts, plank/hold duration, and session history during exercise sessions.</li>
+  <li><strong>App preferences</strong> — your selected exercises, reps-to-minutes ratios, daily reset time, and blocked app list.</li>
+  <li><strong>Streak and stats</strong> — daily exercise history used to compute your streak and weekly charts.</li>
+</ul>
 
-      <section class="policy-content">
+<h2>What data we do NOT collect</h2>
+<ul>
+  <li>We do not collect your name, email address, or any account information.</li>
+  <li>We do not require you to create an account.</li>
+  <li>We do not track your location in the background. We read your device location only in the foreground — when you tap to pin a gym or check in, or when you open the app at a gym you've pinned (to check you in automatically) — never ambiently, never shared off-device. See "Pinned gym check-ins" below.</li>
+  <li>We do not collect advertising identifiers (IDFA).</li>
+  <li>We do not use third-party analytics (no Firebase, Mixpanel, Amplitude, etc.).</li>
+  <li>We do not sell your data to anyone.</li>
+</ul>
 
-        <p>This Privacy Policy for ScreenReps — operated by <strong>Scarabyte</strong> (a sole proprietorship of Ibrahim Mostafa), referred to as "we," "us," or "our" — describes how ScreenReps handles your information when you use the app.</p>
+<h2>How we verify exercise</h2>
+<p>
+  ScreenReps verifies exercise three ways, all on-device. There are no honor-system
+  timers, no accelerometer-based rep guesses, and no third-party fitness backends.
+</p>
 
-        <p>ScreenReps is a digital wellness iOS application that helps you reduce screen time by requiring physical exercise before unlocking selected apps. ScreenReps is <strong>local-first</strong>: it runs without accounts, without our own servers, and without third-party analytics. Almost everything stays on your device.</p>
+<h3>Camera + on-device machine learning</h3>
+<p>
+  For rep-counted moves (push-ups, squats, sit-ups, and similar) and timed holds
+  (planks, boat hold, and similar), ScreenReps uses your camera with a pose-detection
+  model that runs entirely on your device. Camera frames are processed in real time
+  and immediately discarded. Frames are never stored, never written to your photo
+  library, and never transmitted off your device. The rep counter and the hold timer
+  only advance when the on-device model confirms a valid pose.
+</p>
 
-        <div class="summary-block">
-          <strong>The short version.</strong> ScreenReps does not collect your name, email, location, or any account info. There is no signup. Your exercise data, settings, blocked-app list, and stats are all stored on your device. The only data that leaves your device is an anonymous Apple receipt for subscription verification, processed by Apple and RevenueCat. We have no servers of our own, no analytics, no ads, and no trackers.
-        </div>
+<h3>Apple Health (HealthKit)</h3>
+<p>
+  With your permission, ScreenReps reads activity data from Apple Health to credit
+  walking, running, cycling, swimming, stair climbing, and supported workouts. The
+  metrics we may read include step count, walking and running distance, swimming
+  strokes, flights climbed, and workout summaries. This data is read-only and is
+  never transmitted off your device. ScreenReps may write workout summaries back to
+  Apple Health when you complete a session.
+</p>
+<p>
+  ScreenReps requests Apple's "background delivery" permission for Apple Health so
+  that walking, swimming, calories, and similar activity can credit minutes
+  automatically while you go about your day — without requiring you to open the
+  app to log each walk. This means iOS may briefly wake ScreenReps to deliver new
+  HealthKit data; the read happens on your device, and the data is never
+  transmitted off it. If you'd prefer the app only credit activity during sessions
+  you explicitly start in ScreenReps, toggle off <em>"Auto-credit Apple Health
+  activity"</em> in Settings.
+</p>
 
-        <h2>What data we collect</h2>
+<h3>Pinned gym check-ins</h3>
+<p>
+  You can manually pin one or more locations as your "gym" so that arriving there
+  credits exercise time. Location is read <em>in the foreground only</em> — when
+  you tap to pin or check in, and (if you've turned on "Automatic earning" in
+  Settings) once when you open the app within range of a gym you've pinned, so it
+  can check you in without a tap. Both use foreground "while in use" authorization
+  and a single one-shot reading — the automatic check-in reads your existing
+  permission without prompting and does nothing unless you've already granted it.
+  ScreenReps never tracks your location in the background, never queries Google
+  Places, Foursquare, or any third-party gym database, and never shares location
+  data off-device. The pin itself is just a coordinate stored locally — nothing
+  labels it as a "gym" to Apple, Google, or any backend.
+</p>
 
-        <p>ScreenReps collects only what is necessary for the app to function. Everything below is stored <strong>on your device only</strong>:</p>
+<h2>Screen Time / Family Controls</h2>
+<p>
+  ScreenReps uses Apple's Screen Time API (Family Controls) to block apps you
+  select. The list of apps you choose to block is stored locally on your device
+  using Apple's secure token system. ScreenReps never transmits your app list or
+  usage data off-device.
+</p>
 
-        <ul>
-          <li><strong>Exercise data</strong> — rep counts, step counts, plank/hold duration, and session history during exercise sessions.</li>
-          <li><strong>App preferences</strong> — your selected exercises, reps-to-minutes ratios, daily reset time, and the list of apps you have chosen to block.</li>
-          <li><strong>Streak and stats</strong> — daily exercise history used to compute your streak, weekly chart, and all-time totals.</li>
-        </ul>
+<h2>Subscriptions (In-App Purchases)</h2>
+<p>
+  ScreenReps offers an optional premium subscription processed through Apple's
+  App Store. We use RevenueCat to manage subscription status. RevenueCat may
+  receive anonymous purchase receipt data from Apple to verify your subscription
+  status. No personal data beyond what Apple provides in the purchase receipt is
+  shared. See RevenueCat's privacy policy at
+  <a href="https://www.revenuecat.com/privacy">revenuecat.com/privacy</a>.
+</p>
 
-        <h2>What data we do NOT collect</h2>
+<h2>Data storage</h2>
+<p>
+  All user data is stored locally on your device using Apple's secure storage
+  APIs (AsyncStorage / UserDefaults). ScreenReps has no servers and no cloud
+  database. If you delete the app, all data is deleted with it.
+</p>
 
-        <ul>
-          <li>We do not collect your name, email address, phone number, or any account information.</li>
-          <li>We do not require you to create an account.</li>
-          <li>We do not track your location in the background. We use your device location only at the moment you tap to pin a gym or check in — never ambiently, never shared off-device. See "Pinned gym check-ins" below.</li>
-          <li>We do not collect advertising identifiers (IDFA).</li>
-          <li>We do not use third-party analytics services (no Firebase, Mixpanel, Amplitude, or similar).</li>
-          <li>We do not show ads.</li>
-          <li>We do not sell your data to anyone.</li>
-        </ul>
+<h2>Children</h2>
+<p>
+  ScreenReps is not directed at children under 13. We do not knowingly collect
+  data from children.
+</p>
 
-        <h2>How we verify exercise</h2>
+<h2>Changes to this policy</h2>
+<p>
+  If we update this policy, the new version will be posted here with an updated
+  date. Continued use of ScreenReps after changes constitutes acceptance.
+</p>
 
-        <p>ScreenReps verifies exercise three ways, all on-device. There are no honor-system timers, no accelerometer-based rep guesses, and no third-party fitness backends.</p>
-
-        <h3>Camera + on-device machine learning</h3>
-
-        <p>For rep-counted moves (push-ups, squats, sit-ups, and similar) and timed holds (planks, boat hold, and similar), ScreenReps uses your camera with a pose-detection model that runs entirely on your device. Camera frames are processed in real time and immediately discarded. Frames are never stored, never written to your photo library, and never transmitted off your device. The rep counter and the hold timer only advance when the on-device model confirms a valid pose.</p>
-
-        <h3>Apple Health (HealthKit)</h3>
-
-        <p>With your permission, ScreenReps reads activity data from Apple Health to credit walking, running, cycling, swimming, stair climbing, and supported workouts. The metrics we may read include step count, walking and running distance, swimming strokes, flights climbed, and workout summaries. This data is read-only and is never transmitted off your device. ScreenReps may write workout summaries back to Apple Health when you complete a session.</p>
-
-        <h3>Pinned gym check-ins</h3>
-
-        <p>You can manually pin one or more locations as your "gym" so that arriving there credits exercise time. Location is read <em>only at the moment you tap to pin or check in</em>, with foreground "while in use" authorization. ScreenReps never tracks your location in the background, never queries Google Places, Foursquare, or any third-party gym database, and never shares location data off-device. The pin itself is just a coordinate stored locally — nothing labels it as a "gym" to Apple, Google, or any backend.</p>
-
-        <h2>Screen Time / Family Controls</h2>
-
-        <p>ScreenReps uses Apple's Screen Time API (Family Controls) to block apps you select. The list of apps you choose to block is stored locally on your device using Apple's secure token system. ScreenReps never transmits your app list or usage data off-device.</p>
-
-        <h2>Subscriptions and in-app purchases</h2>
-
-        <p>ScreenReps offers an optional Pro subscription processed through Apple's App Store. We use <a href="https://www.revenuecat.com/privacy">RevenueCat</a> to manage subscription status. RevenueCat may receive an anonymous purchase receipt from Apple to verify your subscription status. No personal data beyond what Apple provides in the purchase receipt is shared. Apple's own privacy policy governs the App Store transaction.</p>
-
-        <h2>Data storage and retention</h2>
-
-        <p>All user data is stored locally on your device using Apple's secure storage APIs (UserDefaults, AsyncStorage, and iCloud only when you opt in to iCloud sync). ScreenReps has no servers and no cloud database of its own. If you delete the app, all local data is deleted with it. Because we do not store your data on any server, retention is limited to your device's local storage.</p>
-
-        <h2>Your rights</h2>
-
-        <p>Because we do not collect personal information about you on any server we operate, there is no off-device data for us to access, export, or delete on your behalf. To delete all data ScreenReps has stored locally, delete the app from your device. To stop sharing exercise activity from Apple Health, revoke the HealthKit permission in iOS Settings → Privacy → Health → ScreenReps. To stop location-based gym check-ins, revoke the Location permission in iOS Settings → Privacy → Location Services → ScreenReps.</p>
-
-        <p>If you reside in a jurisdiction with specific data subject rights (such as the EU's GDPR or California's CCPA), those rights generally apply to information held by a controller. Because ScreenReps does not hold your information off-device, the steps above are the practical exercise of those rights.</p>
-
-        <h2>International data transfers</h2>
-
-        <p>ScreenReps does not transfer your information internationally because ScreenReps does not transmit your information. The only data that leaves your device is an anonymous Apple subscription receipt processed by Apple and RevenueCat under their respective privacy policies.</p>
-
-        <h2>Children</h2>
-
-        <p>ScreenReps is not directed at children under 13. We do not knowingly collect data from children. If you believe a child under 13 has used ScreenReps in a way that resulted in any data being collected, please contact us at <a href="mailto:privacy@screenreps.app">privacy@screenreps.app</a>.</p>
-
-        <h2>Changes to this policy</h2>
-
-        <p>If we update this policy, the new version will be posted here with an updated date and an entry in the changelog below. Continued use of ScreenReps after changes constitutes acceptance.</p>
-
-        <ul class="changelog">
-          <li><strong>2026-05-08</strong> Rewritten to accurately reflect ScreenReps' three exercise-verification methods (camera + on-device ML, Apple Health, pinned gym check-ins). Removed accelerometer-based rep counting, which is no longer used. Removed boilerplate sections describing data practices ScreenReps does not engage in. Updated location language to reflect foreground-only, pin-time-only usage. Updated contact email to the screenreps.app domain.</li>
-          <li><strong>2026-04-25</strong> Initial publication.</li>
-        </ul>
-
-        <h2>Contact</h2>
-
-        <div class="contact-card">
-          <strong>Privacy questions</strong>
-          <p style="margin: 0;"><a href="mailto:privacy@screenreps.app">privacy@screenreps.app</a></p>
-        </div>
-
-        <div class="contact-card">
-          <strong>Scarabyte</strong>
-          <address class="address-line">
-            Sole proprietorship of Ibrahim Mostafa<br>
-            Toronto, Canada
-          </address>
-        </div>
-
-      </section>
-
-    </div>
-
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <div>
-        <strong style="color: var(--fg); display: block; margin-bottom: 4px;">ScreenReps</strong>
-        <span>A Scarabyte product. Toronto, Canada.</span>
-      </div>
-      <div class="footer-links">
-        <a href="mailto:hello@screenreps.app">hello@screenreps.app</a>
-        <a href="/">Home</a>
-      </div>
-    </div>
-  </footer>
+<h2>Contact</h2>
+<p>
+  Questions about this policy? Email us at:
+  <a href="mailto:privacy@screenreps.app">privacy@screenreps.app</a>
+</p>
 
 </body>
 </html>
