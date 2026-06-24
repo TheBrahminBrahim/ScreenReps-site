@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ScreenReps — Move first. Scroll later.</title>
-  <meta name="description" content="ScreenReps blocks your favorite apps until you complete real, camera-verified exercise. Auto-banked minutes. No honor system. Coming to iPhone." />
+  <meta name="description" content="ScreenReps blocks your favorite apps until you complete real, camera-verified exercise. Auto-banked minutes. No honor system. Free on the App Store." />
   <meta property="og:title" content="ScreenReps — Move first. Scroll later." />
   <meta property="og:description" content="Earn your screen time through real exercise. Camera-verified reps. Auto-banked minutes. No honor system." />
   <meta property="og:type" content="website" />
@@ -159,10 +159,10 @@
       font-size: 14px;
       font-weight: 700;
       letter-spacing: -0.01em;
-      cursor: default;
-      user-select: none;
-      transition: transform 120ms var(--ease-out);
+      cursor: pointer;
+      transition: transform 120ms var(--ease-out), opacity 120ms ease;
     }
+    .btn:hover { opacity: 0.92; }
     .btn:active { transform: scale(0.97); }
     .btn-apple { width: 16px; height: 16px; fill: #16181C; flex-shrink: 0; }
     .cta-note { font-size: 13px; color: var(--muted); }
@@ -449,10 +449,12 @@
       font-size: 14px;
       font-weight: 600;
       background: var(--dim);
-      color: var(--muted);
-      cursor: default;
-      user-select: none;
+      color: var(--fg);
+      cursor: pointer;
+      transition: opacity 120ms ease, transform 120ms var(--ease-out);
     }
+    .plan-cta:hover { opacity: 0.85; }
+    .plan-cta:active { transform: scale(0.97); }
     .plan-cta--accent { background: var(--accent); color: var(--fg); }
 
     /* ─── Footer ──────────────────────────────────────────────────── */
@@ -532,12 +534,12 @@
         <img src="/icon.png" alt="" aria-hidden="true" />
         <span class="nav-wordmark">Screen<span style="color:var(--accent)">Reps</span></span>
       </a>
-      <div class="nav-right">
+      <a class="nav-right" href="https://apps.apple.com/ca/app/screenreps/id6763800109" rel="noopener" style="color:var(--muted);transition:color 180ms ease;" onmouseover="this.style.color='var(--fg)'" onmouseout="this.style.color='var(--muted)'">
         <svg class="nav-apple" viewBox="0 0 814 1000" aria-hidden="true">
           <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 790.7 0 663 0 541.8c0-207.1 130.3-316.6 254.2-316.6 73.4 0 134.3 48.3 179.7 48.3 43.5 0 111.8-51.4 194.7-51.4 31.6 0 108.2 5.1 166.5 68.9zm-252.6-205.7c31.4-37.5 53.9-90.5 53.9-143.5 0-7.7-.6-15.4-1.9-21.8C539.3 6.5 483 30.5 445 60.7c-35.1 27.5-68.3 70-68.3 126.8 0 8.3 1.3 16.7 1.9 19.3 3.2.6 8.4 1.3 13.6 1.3 49.7 0 103.1-22.6 134.3-72.9z"/>
         </svg>
-        Coming soon to iPhone
-      </div>
+        Download on the App Store
+      </a>
     </div>
   </div>
 </nav>
@@ -552,19 +554,19 @@
       <div class="hero-text">
         <div class="hero-eyebrow" data-reveal>
           <span class="eyebrow-dot" aria-hidden="true"></span>
-          Now in beta
+          Now on the App Store
         </div>
         <h1 data-reveal data-d="1">Move first.<br>Scroll later.</h1>
         <p class="hero-sub" data-reveal data-d="2">
           ScreenReps blocks your favorite apps until you earn them back through real, verified exercise. Every rep banks screen time automatically. No honor system.
         </p>
         <div class="cta-row" data-reveal data-d="3">
-          <span class="btn" role="text" aria-label="Coming to the App Store">
+          <a class="btn" href="https://apps.apple.com/ca/app/screenreps/id6763800109" rel="noopener" aria-label="Download ScreenReps on the App Store">
             <svg class="btn-apple" viewBox="0 0 814 1000" aria-hidden="true">
               <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 790.7 0 663 0 541.8c0-207.1 130.3-316.6 254.2-316.6 73.4 0 134.3 48.3 179.7 48.3 43.5 0 111.8-51.4 194.7-51.4 31.6 0 108.2 5.1 166.5 68.9zm-252.6-205.7c31.4-37.5 53.9-90.5 53.9-143.5 0-7.7-.6-15.4-1.9-21.8C539.3 6.5 483 30.5 445 60.7c-35.1 27.5-68.3 70-68.3 126.8 0 8.3 1.3 16.7 1.9 19.3 3.2.6 8.4 1.3 13.6 1.3 49.7 0 103.1-22.6 134.3-72.9z"/>
             </svg>
-            Coming to the App Store
-          </span>
+            Download on the App Store
+          </a>
           <span class="cta-note">Free to download · iPhone</span>
         </div>
       </div>
@@ -754,7 +756,7 @@
             </svg>All exercises &amp; gym check-in
           </li>
         </ul>
-        <span class="plan-cta" role="text">Available at launch</span>
+        <a class="plan-cta" href="https://apps.apple.com/ca/app/screenreps/id6763800109" rel="noopener">Download Free</a>
       </div>
 
       <!-- Pro tier -->
@@ -794,7 +796,7 @@
             </svg>Custom daily reset time
           </li>
         </ul>
-        <span class="plan-cta plan-cta--accent" role="text">Available at launch</span>
+        <a class="plan-cta plan-cta--accent" href="https://apps.apple.com/ca/app/screenreps/id6763800109" rel="noopener">Get Pro</a>
       </div>
     </div>
   </div>
