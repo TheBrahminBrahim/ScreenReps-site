@@ -32,18 +32,20 @@
 <p class="nav"><a href="/">← ScreenReps</a></p>
 
 <h1>ScreenReps Privacy Policy</h1>
-<p class="updated">Last updated: May 2026</p>
+<p class="updated">Last updated: October 2026</p>
 
 <p>
   ScreenReps ("we", "our", or "the app") is a digital wellness iOS application that
   helps you reduce screen time by requiring physical exercise before unlocking
   selected apps. Your privacy is central to how we built this product. ScreenReps
-  is local-first: it runs without accounts, without servers, and without third-party
-  analytics.
+  is local-first: it runs without accounts, and your exercise, health, location and
+  app-usage data never leave your device. The only data that reaches us is anonymous
+  purchase information, used to understand which of our marketing works
+  (see "Purchase and marketing measurement" below).
 </p>
 
 <h2>What data we collect</h2>
-<p>ScreenReps collects only what is necessary to function. Everything below is stored on your device only:</p>
+<p>ScreenReps collects only what is necessary to function. Everything below is stored on your device only and is never sent to us or anyone else:</p>
 <ul>
   <li><strong>Exercise data</strong> — rep counts, step counts, plank/hold duration, and session history during exercise sessions.</li>
   <li><strong>App preferences</strong> — your selected exercises, reps-to-minutes ratios, daily reset time, and blocked app list.</li>
@@ -56,7 +58,7 @@
   <li>We do not require you to create an account.</li>
   <li>We do not track your location in the background. We read your device location only in the foreground — when you tap to pin a gym or check in, or when you open the app at a gym you've pinned (to check you in automatically) — never ambiently, never shared off-device. See "Pinned gym check-ins" below.</li>
   <li>We do not collect advertising identifiers (IDFA).</li>
-  <li>We do not use third-party analytics (no Firebase, Mixpanel, Amplitude, etc.).</li>
+  <li>We do not use third-party behavioral analytics (no Firebase, Mixpanel, Amplitude, etc.) and never see how you use the app.</li>
   <li>We do not sell your data to anyone.</li>
 </ul>
 
@@ -129,11 +131,33 @@
   <a href="https://www.revenuecat.com/privacy">revenuecat.com/privacy</a>.
 </p>
 
+<h2>Purchase and marketing measurement</h2>
+<p>
+  To understand which of our marketing (creator videos, promo codes and ads) leads to
+  downloads and subscriptions, we collect a small amount of anonymous purchase data:
+</p>
+<ul>
+  <li><strong>Purchase events from RevenueCat.</strong> When you start a trial, subscribe,
+    renew, cancel or get a refund, RevenueCat sends us a record of that event: an anonymous
+    app-generated user ID, the product, price and currency, your country, the dates, and any
+    promo code or campaign it was linked to. We store these records in our own database,
+    hosted by Supabase, to count trials, customers and revenue.</li>
+</ul>
+<p>
+  This data contains no name, email, exercise, health, location or app-usage information.
+  We do not use your advertising identifier (IDFA), do not ask to track you, do not combine
+  this data with data from other companies to profile you, and do not use it to show you ads.
+  We keep it only as long as we need it for business and accounting records. See
+  <a href="https://www.revenuecat.com/privacy">RevenueCat's</a> and
+  <a href="https://supabase.com/privacy">Supabase's</a> privacy policies.
+</p>
+
 <h2>Data storage</h2>
 <p>
   All user data is stored locally on your device using Apple's secure storage
-  APIs (AsyncStorage / UserDefaults). ScreenReps has no servers and no cloud
-  database. If you delete the app, all data is deleted with it.
+  APIs (AsyncStorage / UserDefaults). There are no accounts and no cloud copy of
+  your exercise or app data. If you delete the app, all of it is deleted with it. The
+  only exception is the anonymous purchase data described above.
 </p>
 
 <h2>Children</h2>
