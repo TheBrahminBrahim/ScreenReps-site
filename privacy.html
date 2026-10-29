@@ -160,12 +160,21 @@
   <a href="https://sentry.io/privacy/">Sentry's privacy policy</a>.
 </p>
 
+<h2>Anonymous usage statistics</h2>
+<p>
+  We use PostHog to count how many people reach each step of setup and their first
+  workout, so we can find and fix the steps where people give up. These events are
+  anonymous: they carry no name, email, device identifier tied to you, health, location or
+  app-usage data, and we do not build profiles, record your screen, or track your taps.
+  See <a href="https://posthog.com/privacy">PostHog's privacy policy</a>.
+</p>
+
 <h2>Data storage</h2>
 <p>
   All user data is stored locally on your device using Apple's secure storage
   APIs (AsyncStorage / UserDefaults). There are no accounts and no cloud copy of
   your exercise or app data. If you delete the app, all of it is deleted with it. The
-  only exceptions are the anonymous purchase data and crash reports described above.
+  only exceptions are the anonymous purchase data, crash reports and anonymous usage statistics described above.
 </p>
 
 <h2>Children</h2>
@@ -182,6 +191,7 @@
 
 <h2>What changed</h2>
 <ul>
+  <li><strong>October 2026:</strong> We now count anonymous setup and first-workout steps with PostHog so we can improve onboarding. Nothing in these counts identifies you. See "Anonymous usage statistics" above.</li>
   <li><strong>October 2026:</strong> This policy now mentions crash reporting: the app sends crash and performance reports to Sentry so we can fix bugs. These have always been part of the app; they contain technical details only, never your name, email or personal content.</li>
   <li><strong>October 2026:</strong> We now receive anonymous purchase records (trials, subscriptions, renewals, refunds) from RevenueCat to see which of our marketing works. No name, email, or app data is included, and we don't track you. See "Purchase and marketing measurement" above.</li>
 </ul>
